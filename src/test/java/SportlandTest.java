@@ -1,4 +1,5 @@
 import Pages.BaseFunc;
+import Pages.HomePage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -9,8 +10,11 @@ public class SportlandTest {
     private final String HOME_PAGE ="sportland.lv";
 
     @Test
-    public void SportlandItemTest(){
+    public void SportlandItemTest() {
         baseFunc.goToURL(HOME_PAGE);
+
+        HomePage homePage = new HomePage(baseFunc);
+        homePage.openSideMenu();
+        homePage.sideMenuItem("PRODUKTI");
     }
 }
- 
