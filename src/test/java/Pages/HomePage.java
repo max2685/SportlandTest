@@ -26,6 +26,6 @@ public class HomePage {
                 break;
             }
         }
-        return new ProductPage();
+        return new ProductPage(baseFunc);
     }
 }

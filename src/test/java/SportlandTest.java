@@ -1,5 +1,6 @@
 import Pages.BaseFunc;
 import Pages.HomePage;
+import Pages.ProductPage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -16,5 +17,9 @@ public class SportlandTest {
         HomePage homePage = new HomePage(baseFunc);
         homePage.openSideMenu();
         homePage.sideMenuItem("PRODUKTI");
+
+        ProductPage productPage = new ProductPage(baseFunc);
+        productPage.ZeniDropDown();
+        productPage.ClickOnFutbols();
     }
 }

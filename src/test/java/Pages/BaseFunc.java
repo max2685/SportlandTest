@@ -42,4 +42,6 @@ public class BaseFunc {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
+
 }
