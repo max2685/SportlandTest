@@ -1,6 +1,7 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BaseFunc {
     WebDriver driver;
@@ -34,14 +36,33 @@ public class BaseFunc {
     }
 
     public void waitForElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public void waitForElement(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public void pause(Integer milliseconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void scrollDown(int x, int y) {
+        JavascriptExecutor jsx = (JavascriptExecutor) driver;
+        jsx.executeScript("window.scrollBy(0,450)");
+    }
+
+    public void scrollTo(int x, int y) {
+        String script = "window.scrollTo(" + x + ", " + y + ");";
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(script);
+    }
 
 }

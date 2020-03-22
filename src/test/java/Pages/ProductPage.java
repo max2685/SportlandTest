@@ -13,7 +13,7 @@ public class ProductPage {
     }
 
     public void ZeniDropDown() {
-        baseFunc.waitForElement(ZENI_DROP_MENU);
+        baseFunc.pause(3000);
         baseFunc.getElement(ZENI_DROP_MENU).click();
     }
 

@@ -1,3 +1,4 @@
+import Pages.ApaviPage;
 import Pages.BaseFunc;
 import Pages.HomePage;
 import Pages.ProductPage;
@@ -21,5 +22,11 @@ public class SportlandTest {
         ProductPage productPage = new ProductPage(baseFunc);
         productPage.ZeniDropDown();
         productPage.ClickOnFutbols();
+
+        ApaviPage apaviPage = new ApaviPage(baseFunc);
+        apaviPage.OpenSortMenu();
+        apaviPage.clickOnIzpardosana();
+        apaviPage.selectFilters();
+        apaviPage.checkThatOnlyNikeShoesAppeared();
     }
 }
