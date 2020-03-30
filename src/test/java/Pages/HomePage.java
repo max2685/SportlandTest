@@ -12,6 +12,7 @@ public class HomePage {
 
     public HomePage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
+        baseFunc.pageSourceCheck("sportland.lv");
     }
 
     public void openSideMenu() {
@@ -23,7 +24,7 @@ public class HomePage {
         for (WebElement we : menuItems) {
             if (we.getText().equals(name)) {
                 we.click();
-                break;
+                break; //po drugomu ne rabotaet
             }
         }
         return new ProductPage(baseFunc);

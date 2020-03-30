@@ -5,21 +5,23 @@ import org.openqa.selenium.By;
 public class ProductPage {
     BaseFunc baseFunc;
 
-    private final By ZENI_DROP_MENU = By.xpath("//*[text()='Zēni ']");
-    private final By SELECTION_FUTBOLS = By.xpath(".//li[@id = 'wp-megamenu-item-84833']");
+
+    private final By DROP_DOWN_MENU_ITEM = By.xpath("//*[text()='Zēni ']");
+    private final By SELECT_ITEM = By.xpath(".//li[@id = 'wp-megamenu-item-84833']");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
+        baseFunc.pageSourceCheck("produkti");
     }
 
-    public void ZeniDropDown() {
+    public void dropDownMenu() {
         baseFunc.pause(3000);
-        baseFunc.getElement(ZENI_DROP_MENU).click();
+        baseFunc.getElement(DROP_DOWN_MENU_ITEM).click();
     }
 
-    public ApaviPage ClickOnFutbols() {
-        baseFunc.waitForElement(SELECTION_FUTBOLS);
-        baseFunc.getElement(SELECTION_FUTBOLS).click();
+    public ApaviPage clickOnItem() {
+        baseFunc.waitForElement(SELECT_ITEM);
+        baseFunc.getElement(SELECT_ITEM).click();
         return new ApaviPage(baseFunc);
     }
 }

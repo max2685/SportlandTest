@@ -36,33 +36,48 @@ public class BaseFunc {
     }
 
     public void waitForElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public void waitForElement(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        //duplicate
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
-
-    public void pause(Integer milliseconds) {
-        try {
-            TimeUnit.MILLISECONDS.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void scrollDown(int x, int y) {
         JavascriptExecutor jsx = (JavascriptExecutor) driver;
         jsx.executeScript("window.scrollBy(0,450)");
     }
 
-    public void scrollTo(int x, int y) {
-        String script = "window.scrollTo(" + x + ", " + y + ");";
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript(script);
+    public void driverQuit() {
+        driver.quit();
+    }
+
+    public void pageSourceCheck(String name) {
+        if (driver.getCurrentUrl().contains(name)) {
+            System.out.println("You're on the right page");
+        } else {
+            System.out.println("You're NOT on the right page");
+        }
+
+    }
+
+//    public void scrollTo(int x, int y) {
+//        String script = "window.scrollTo(" + x + ", " + y + ");";
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript(script);
+//    }
+
+    public void pause(Integer milliseconds) {
+        //you can use int instead of Integer in type of variable
+        //please use explicitly waits
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
