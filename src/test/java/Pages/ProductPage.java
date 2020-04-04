@@ -15,14 +15,13 @@ public class ProductPage {
     }
 
     public void dropDownMenu() {
-        baseFunc.pause(3000);
         baseFunc.getElement(DROP_DOWN_MENU_ITEM).click();
     }
 
-    public ApaviPage clickOnItem() {
+    public ItemsPage clickOnItem() {
         baseFunc.waitForElement(SELECT_ITEM);
         baseFunc.getElement(SELECT_ITEM).click();
-        return new ApaviPage(baseFunc);
+        return new ItemsPage(baseFunc);
     }
 }
 

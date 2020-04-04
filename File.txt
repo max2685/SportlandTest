@@ -1,0 +1,7 @@
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]
+[[ChromeDriver: chrome on WINDOWS (c4a3f92d132b284909770d6835c224e7)] -> xpath: .//p[@class = 'spodb-product-card__title']]

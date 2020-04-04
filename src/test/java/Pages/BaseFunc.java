@@ -14,10 +14,12 @@ import java.util.concurrent.TimeUnit;
 public class BaseFunc {
     WebDriver driver;
 
+
     public BaseFunc(){
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+
     }
 
     public void goToURL(String url) {
@@ -58,21 +60,11 @@ public class BaseFunc {
     public void pageSourceCheck(String name) {
         if (driver.getCurrentUrl().contains(name)) {
             System.out.println("You're on the right page");
-        } else {
-            System.out.println("You're NOT on the right page");
         }
 
     }
 
-//    public void scrollTo(int x, int y) {
-//        String script = "window.scrollTo(" + x + ", " + y + ");";
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript(script);
-//    }
-
     public void pause(Integer milliseconds) {
-        //you can use int instead of Integer in type of variable
-        //please use explicitly waits
         try {
             TimeUnit.MILLISECONDS.sleep(milliseconds);
         } catch (InterruptedException e) {
@@ -80,4 +72,14 @@ public class BaseFunc {
         }
     }
 
+    public void waitForPageLoad() {
+        WebDriverWait wait = new WebDriverWait(driver, 1);
+        String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(1000);return 'success';";
+        wait.until(ExpectedConditions.jsReturnsValue(javaScript));
+
+    }
+
+
 }
+
+
