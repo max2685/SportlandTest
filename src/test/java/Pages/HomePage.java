@@ -24,7 +24,7 @@ public class HomePage {
         for (WebElement we : menuItems) {
             if (we.getText().equals(name)) {
                 we.click();
-                break; //po drugomu ne rabotaet
+                break;
             }
         }
         return new ProductPage(baseFunc);

@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseFunc {
     WebDriver driver;
+    WebDriverWait wait;
 
 
     public BaseFunc(){
@@ -43,8 +44,7 @@ public class BaseFunc {
     }
 
     public void waitForElement(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        //duplicate
+        wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
