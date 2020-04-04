@@ -2,8 +2,8 @@ import Pages.BaseFunc;
 import Pages.HomePage;
 import Pages.ItemsPage;
 import Pages.ProductPage;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -11,7 +11,8 @@ import java.io.FileNotFoundException;
 public class SportlandTest {
     private BaseFunc baseFunc = new BaseFunc();
     private final Logger LOGGER = LogManager.getLogger(SportlandTest.class);
-    private final String HOME_PAGE ="sportland.lv";
+    private final String HOME_PAGE = "sportland.lv";
+    private final String PRODUKTI = "PRODUKTI";
 
     @Test
 
@@ -19,19 +20,18 @@ public class SportlandTest {
 
         baseFunc.goToURL(HOME_PAGE);
 
+        //logger before method
+
         HomePage homePage = new HomePage(baseFunc);
         LOGGER.info("We are on home page");
         homePage.openSideMenu();
         LOGGER.info("We are opening side menu");
-        homePage.sideMenuItem("PRODUKTI");
-        LOGGER.info("We are clicking on PRODUKTI");
 
-        ProductPage productPage = new ProductPage(baseFunc);
-        LOGGER.info("We are are on product page");
-        productPage.dropDownMenu();
-        LOGGER.info("We are clicking on drop menu");
-        productPage.clickOnItem();
-        LOGGER.info("We are clicking on Futbols");
+        LOGGER.info("Click on " + PRODUKTI + "tab and select 'Football products'");
+        ProductPage productPage = homePage.sideMenuItem(PRODUKTI)
+                .getProductPage()
+                .clickOnZeniTab()
+                .clickOnFootballItem();
 
         ItemsPage itemsPage = new ItemsPage(baseFunc);
         LOGGER.info("We are on items page");

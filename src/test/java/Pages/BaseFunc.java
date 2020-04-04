@@ -1,5 +1,6 @@
 package Pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,11 +17,14 @@ public class BaseFunc {
     WebDriverWait wait;
 
 
-    public BaseFunc(){
+    public BaseFunc() {
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+    }
 
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
     public void goToURL(String url) {
@@ -58,10 +62,7 @@ public class BaseFunc {
     }
 
     public void pageSourceCheck(String name) {
-        if (driver.getCurrentUrl().contains(name)) {
-            System.out.println("You're on the right page");
-        }
-
+        Assert.assertTrue("You are not on the right page", driver.getCurrentUrl().contains(name));
     }
 
     public void pause(Integer milliseconds) {
@@ -72,14 +73,11 @@ public class BaseFunc {
         }
     }
 
-    public void waitForPageLoad() {
-        WebDriverWait wait = new WebDriverWait(driver, 1);
+    public void waitForJs() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(1000);return 'success';";
         wait.until(ExpectedConditions.jsReturnsValue(javaScript));
-
     }
-
-
 }
 
 

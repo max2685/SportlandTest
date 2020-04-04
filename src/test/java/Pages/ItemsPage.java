@@ -7,7 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
 
 public class ItemsPage {
     BaseFunc baseFunc;
@@ -22,7 +23,6 @@ public class ItemsPage {
     public ItemsPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
         baseFunc.pageSourceCheck("football");
-
     }
 
     public void openSortMenu() {
@@ -37,32 +37,39 @@ public class ItemsPage {
 
     }
 
+    //specify method name
     public void selectFilters() {
-        baseFunc.waitForPageLoad();
+        baseFunc.waitForJs();
         baseFunc.getElement(FILTER_CATEGORY).click();
-        baseFunc.waitForPageLoad();
+        baseFunc.waitForJs();
         baseFunc.scrollDown(0, 600);
-        baseFunc.waitForPageLoad();
+        baseFunc.waitForJs();
         baseFunc.waitForElementToBeClickable(FILTER_BRAND);
         baseFunc.getElement(FILTER_BRAND).click();
     }
 
+    //can be reused. Please improve
     public void itemTypeCheck() {
-        baseFunc.waitForPageLoad();
+        baseFunc.waitForJs();
         List<WebElement> shoesType = baseFunc.getElements(ITEMS_ON_PAGE);
         for (WebElement we : shoesType) {
-            if (we.getText().contains("NIKE")) {
-                continue;
-            } else {
-                break;
-            }
+            assertTrue("Not only Nike items are here", we.getText().contains("NIKE"));
         }
+
+//        for (WebElement we : shoesType) {
+//            if (we.getText().contains("NIKE")) {
+//                continue;
+//            } else {
+//                break;
+//            }
+//        }
     }
     //            assertTrue("Not only Nike items are here", we.getText().contains("nike"));
 
 
     public void itemsOnSaleCheck() {
         List<WebElement> itemsOnSale = baseFunc.getElements(ITEMS_ON_PAGE_DISCOUNT);
+
         for (WebElement we : itemsOnSale) {
             if (we.getText().contains("%")) {
                 continue;
@@ -71,19 +78,30 @@ public class ItemsPage {
             }
         }
 //        assertTrue("Items are not on SALE", we.getText().contains("%"));
+
     }
 
     public void writeFile(String filename) throws FileNotFoundException {
         try (FileWriter writer = new FileWriter(filename)) {
+            String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
-            baseFunc.waitForPageLoad();
-            List<String> elementsOnPage = webElementsOnPage.stream().map(WebElement::getText).collect(Collectors.toList());
-            writer.write(String.valueOf(elementsOnPage));
+//            baseFunc.waitForJs();
+//            List<String> elementsOnPage = webElementsOnPage
+//                    .stream()
+//                    .map(WebElement::getText)
+//                    .collect(Collectors.toList());
+//            writer.write(String.valueOf(elementsOnPage));
+
+            for (int i = 0; i < webElementsOnPage.size(); i++) {
+                nameOfString = webElementsOnPage.get(i).getText();
+                nameOfString = nameOfString + "\n";
+                writer.write(nameOfString);
+            }
 
         } catch (FileNotFoundException e) {
             throw e;
         } catch (IOException e) {
-            System.err.print("Something went wrong");
+            e.printStackTrace();
         }
     }
 }
