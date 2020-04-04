@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemsPage {
     BaseFunc baseFunc;
@@ -47,6 +48,7 @@ public class ItemsPage {
     }
 
     public void itemTypeCheck() {
+        baseFunc.waitForPageLoad();
         List<WebElement> shoesType = baseFunc.getElements(ITEMS_ON_PAGE);
         for (WebElement we : shoesType) {
             if (we.getText().contains("NIKE")) {
@@ -56,7 +58,7 @@ public class ItemsPage {
             }
         }
     }
-    //            assertTrue("Only Nike items are here", we.getText().contains("nike"));
+    //            assertTrue("Not only Nike items are here", we.getText().contains("nike"));
 
 
     public void itemsOnSaleCheck() {
@@ -68,17 +70,16 @@ public class ItemsPage {
                 break;
             }
         }
-//        assertTrue("Items are on SALE", we.getText().contains("%"));
+//        assertTrue("Items are not on SALE", we.getText().contains("%"));
     }
 
     public void writeFile(String filename) throws FileNotFoundException {
         try (FileWriter writer = new FileWriter(filename)) {
-            List<WebElement> fileText = baseFunc.getElements(ITEMS_ON_PAGE);
+            List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
             baseFunc.waitForPageLoad();
-            for (WebElement we : fileText) {
-                we.getText();
-                writer.write(we + "\n");
-            }
+            List<String> elementsOnPage = webElementsOnPage.stream().map(WebElement::getText).collect(Collectors.toList());
+            writer.write(String.valueOf(elementsOnPage));
+
         } catch (FileNotFoundException e) {
             throw e;
         } catch (IOException e) {
