@@ -1,7 +1,6 @@
 import Pages.BaseFunc;
 import Pages.HomePage;
 import Pages.ItemsPage;
-import Pages.ProductPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -13,10 +12,12 @@ public class SportlandTest {
     private final Logger LOGGER = LogManager.getLogger(SportlandTest.class);
     private final String HOME_PAGE = "sportland.lv";
     private final String PRODUKTI = "PRODUKTI";
+    private final String MAN = "";
+    private final String SHOES_FOR_FOOTBALL = "Futbols";
 
     @Test
 
-    public void sportlandTest() {
+    public void sportlandTest() throws FileNotFoundException {
 
         baseFunc.goToURL(HOME_PAGE);
 
@@ -28,33 +29,19 @@ public class SportlandTest {
         LOGGER.info("We are opening side menu");
 
         LOGGER.info("Click on " + PRODUKTI + "tab and select 'Football products'");
-        ProductPage productPage = homePage.sideMenuItem(PRODUKTI)
+        ItemsPage itemsPage = homePage.sideMenuItem(PRODUKTI)
                 .getProductPage()
-                .clickOnZeniTab()
-                .clickOnFootballItem();
-
-        ItemsPage itemsPage = new ItemsPage(baseFunc);
-        LOGGER.info("We are on items page");
-        itemsPage.openSortMenu();
-        LOGGER.info("We are opening sort menu");
-        itemsPage.clickOnFilter();
-        LOGGER.info("We are clicking on Izpardosana");
-        itemsPage.selectFilters();
-        LOGGER.info("We are selecting filters");
-        itemsPage.itemTypeCheck();
-        LOGGER.info("We are checking if all item are Nike");
-        itemsPage.itemsOnSaleCheck();
-        LOGGER.info("We are checking if all items are on sale");
-
-        try {
-            itemsPage.writeFile("File.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        LOGGER.info("We are writing a file");
+                .clickOnZeniTab(MAN)
+                .clickOnFootballShoesItem(SHOES_FOR_FOOTBALL)
+                .getItemsPage()
+                .openSortMenu()
+                .clickOnFilterIzpardosana()
+                .selectFilters()
+                .itemsTypeCheck()
+                .itemsOnSaleCheck()
+                .writeFile("File.txt");
 
         baseFunc.driverQuit();
 
     }
 }
-//

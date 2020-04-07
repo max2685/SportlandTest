@@ -23,12 +23,20 @@ public class HomePage {
 
     public HomePage sideMenuItem(String name) {
         List<WebElement> menuItems = baseFunc.getElements(SIDE_MENU_ITEMS);
-        for (WebElement we : menuItems) {
-            if (we.getText().equals(name)) {
-                we.click();
-                break;
-            }
-        }
+        menuItems
+                .stream()
+                .filter(we -> we.getText().contains(name))
+                .findAny()
+                .get()
+                .click();
+
+//        List<WebElement> menuItems = baseFunc.getElements(SIDE_MENU_ITEMS);
+//        for (WebElement we : menuItems) {
+//            if (we.getText().equals(name)) {
+//                we.click();
+//                break;
+//            }
+//        }
         return this;
     }
 

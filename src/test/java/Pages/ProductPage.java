@@ -1,12 +1,15 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class ProductPage {
     BaseFunc baseFunc;
 
-    private final By DROP_DOWN_MENU_ITEM = By.xpath("//*[text()='Zēni ']");
-    private final By SELECT_ITEM = By.xpath(".//li[@id = 'wp-megamenu-item-84833']");
+    private final By DROP_DOWN_MENU_PRODUCTS = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
+    private final By SELECT_ITEM_FOOTBALL = By.xpath(".//li[@id='wp-megamenu-item-84749']");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
@@ -14,21 +17,31 @@ public class ProductPage {
     }
 
     //please make it not hardcoded .stream
-    public ProductPage clickOnZeniTab() {
-        baseFunc.waitForElement(DROP_DOWN_MENU_ITEM);
-        baseFunc.getElement(DROP_DOWN_MENU_ITEM).click();
+    public ProductPage clickOnZeniTab(String name) {
+        List<WebElement> menuItems = baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS);
+        menuItems
+                .stream()
+                .filter(we -> we.getText().contains(name))
+                .findAny()
+                .get()
+                .click();
         return this;
     }
 
-    //please make it not hardcoded .stream
-    public ProductPage clickOnFootballItem() {
-        baseFunc.waitForElement(SELECT_ITEM);
-        baseFunc.getElement(SELECT_ITEM).click();
+
+    public ProductPage clickOnFootballShoesItem(String name) {
+        baseFunc.waitForElement(SELECT_ITEM_FOOTBALL);
+        List<WebElement> menuItems = baseFunc.getElements(SELECT_ITEM_FOOTBALL);
+        menuItems
+                .stream()
+                .filter(we -> we.getText().contains(name))
+                .findAny()
+                .get()
+                .click();
         return this;
     }
 
-    //please specify method name
-    public ItemsPage andGetItemsPage() {
+    public ItemsPage getItemsPage() {
         return new ItemsPage(baseFunc);
     }
 }
