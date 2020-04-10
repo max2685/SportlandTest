@@ -14,7 +14,7 @@ public class ItemsPage {
     BaseFunc baseFunc;
 
     private final By SORT_MENU = By.xpath(".//div[@class = 'spodb-filter__select']");
-    private final By SORT_MENU_ITEM = By.xpath(".//option[@value = 'offer']");
+    private final By SORT_MENU_ITEM_IZPARDOSANA = By.xpath(".//div[@class = 'spodb-filter__select']/select/option");
     private final By FILTER_CATEGORY = By.xpath(".//label[@for = 'firm-ground-football-boots']");
     private final By FILTER_BRAND = By.xpath(".//label[@for = '85']");
     private final By ITEMS_ON_PAGE = By.xpath(".//p[@class = 'spodb-product-card__title']");
@@ -31,14 +31,20 @@ public class ItemsPage {
         return this;
     }
 
-    public ItemsPage clickOnFilterIzpardosana() {
-        baseFunc.waitForElementToBeClickable(SORT_MENU_ITEM);
-        baseFunc.getElement(SORT_MENU_ITEM).click();
+    public ItemsPage clickOnFilterIzpardosana(String name) {
+        baseFunc.waitForElement(SORT_MENU_ITEM_IZPARDOSANA);
+        List<WebElement> menuItems = baseFunc.getElements(SORT_MENU_ITEM_IZPARDOSANA);
+        menuItems
+                .stream()
+                .filter(we -> we.getText().toLowerCase().contains(name))
+                .findAny()
+                .get()
+                .click();
         return this;
     }
 
     //specify method name
-    public ItemsPage selectFilters() {
+    public ItemsPage selectItemSortFilters() {
         baseFunc.waitForJs();
         baseFunc.getElement(FILTER_CATEGORY).click();
         baseFunc.waitForJs();
@@ -71,12 +77,13 @@ public class ItemsPage {
         try (FileWriter writer = new FileWriter(filename)) {
             String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
+
 //            baseFunc.waitForJs();
 //            List<String> elementsOnPage = webElementsOnPage
 //                    .stream()
 //                    .map(WebElement::getText)
 //                    .collect(Collectors.toList());
-//            writer.write(String.valueOf(elementsOnPage)); ?????
+//            writer.write(String.valueOf(elementsOnPage));
 
             for (int i = 0; i < webElementsOnPage.size(); i++) {
                 nameOfString = webElementsOnPage.get(i).getText();

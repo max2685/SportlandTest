@@ -9,7 +9,7 @@ public class ProductPage {
     BaseFunc baseFunc;
 
     private final By DROP_DOWN_MENU_PRODUCTS = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
-    private final By SELECT_ITEM_FOOTBALL = By.xpath(".//li[@id='wp-megamenu-item-84749']");
+    private final By SELECT_ITEM_FOOTBALL = By.xpath(".//li[@id='wp-megamenu-item-84749']/ul/li");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
@@ -21,8 +21,8 @@ public class ProductPage {
         List<WebElement> menuItems = baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS);
         menuItems
                 .stream()
-                .filter(we -> we.getText().contains(name))
-                .findAny()
+                .filter(we -> we.getText().toLowerCase().contains(name))
+                .findFirst()
                 .get()
                 .click();
         return this;
@@ -34,7 +34,7 @@ public class ProductPage {
         List<WebElement> menuItems = baseFunc.getElements(SELECT_ITEM_FOOTBALL);
         menuItems
                 .stream()
-                .filter(we -> we.getText().contains(name))
+                .filter(we -> we.getText().toLowerCase().contains(name))
                 .findAny()
                 .get()
                 .click();
