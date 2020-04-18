@@ -18,7 +18,7 @@ public class SportlandTest {
     private final String FILTER_CATEGORY = "futbola apavi cietam segumam";
     private final String FILTER_BRAND = "nike";
     private final String PROCENT_SIGN = "%";
-
+    
     @Test
 
     public void sportlandTest() throws FileNotFoundException {
