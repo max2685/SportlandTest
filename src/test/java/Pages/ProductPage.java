@@ -16,28 +16,16 @@ public class ProductPage {
         baseFunc.pageSourceCheck("produkti");
     }
 
-    //please make it not hardcoded .stream
     public ProductPage clickOnZeniTab(String name) {
         List<WebElement> menuItems = baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS);
-        menuItems
-                .stream()
-                .filter(we -> we.getText().toLowerCase().contains(name))
-                .findFirst()
-                .get()
-                .click();
+        baseFunc.findElementInListAndClick(menuItems, name);
         return this;
     }
-
 
     public ProductPage clickOnFootballShoesItem(String name) {
         baseFunc.waitForElement(SELECT_ITEM_FOOTBALL);
         List<WebElement> menuItems = baseFunc.getElements(SELECT_ITEM_FOOTBALL);
-        menuItems
-                .stream()
-                .filter(we -> we.getText().toLowerCase().contains(name))
-                .findAny()
-                .get()
-                .click();
+        baseFunc.findElementInListAndClick(menuItems, name);
         return this;
     }
 

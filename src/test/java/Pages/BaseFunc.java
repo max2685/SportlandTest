@@ -78,6 +78,16 @@ public class BaseFunc {
         String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(1000);return 'success';";
         wait.until(ExpectedConditions.jsReturnsValue(javaScript));
     }
+
+    public void findElementInListAndClick(List<WebElement> someListOfElements, String name) {
+        this.waitForJs();
+        someListOfElements
+                .stream()
+                .filter(we -> we.getText().toLowerCase().contains(name))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No element found"))
+                .click();
+    }
 }
 
 
