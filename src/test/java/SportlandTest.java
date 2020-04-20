@@ -1,12 +1,9 @@
 import Pages.BaseFunc;
 import Pages.HomePage;
 import Pages.ItemsPage;
-import enums.SideMenuItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
 
 import static enums.SideMenuItems.PRODUKTI;
 
