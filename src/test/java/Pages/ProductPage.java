@@ -1,32 +1,33 @@
 package Pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.util.List;
+import static enums.SideMenuItems.PRODUKTI;
 
 public class ProductPage {
     BaseFunc baseFunc;
 
     private final By DROP_DOWN_MENU_PRODUCTS = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
-    private final By SELECT_ITEM_FOOTBALL = By.xpath(".//li[@id='wp-megamenu-item-84749']/ul/li");
+    private final By ITEMS_UNDER_SHOES = By.xpath(".//li[@id='wp-megamenu-item-84749']/ul/li");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
-        baseFunc.pageSourceCheck("produkti");
+        baseFunc.pageSourceCheck(PRODUKTI.menuItem());
     }
 
-    public ProductPage clickOnZeniTab(String name) {
-        List<WebElement> menuItems = baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS);
-        baseFunc.findElementInListAndClick(menuItems, name);
+    public ProductPage clickOnGenderTab(String name) {
+        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS), name);
         return this;
     }
 
     public ProductPage clickOnFootballShoesItem(String name) {
-        baseFunc.waitForElement(SELECT_ITEM_FOOTBALL);
-        List<WebElement> menuItems = baseFunc.getElements(SELECT_ITEM_FOOTBALL);
-        baseFunc.findElementInListAndClick(menuItems, name);
+        baseFunc.waitForElement(ITEMS_UNDER_SHOES);
+        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(ITEMS_UNDER_SHOES), name);
         return this;
+    }
+
+    public void selectProductInSubMenu() {
+        // try to create it reusable
     }
 
     public ItemsPage getItemsPage() {
