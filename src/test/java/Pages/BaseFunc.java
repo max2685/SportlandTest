@@ -16,7 +16,6 @@ public class BaseFunc {
     WebDriverWait wait;
     JavascriptExecutor jsx;
 
-
     public BaseFunc() {
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
