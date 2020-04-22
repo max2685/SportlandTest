@@ -76,13 +76,6 @@ public class ItemsPage {
             String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
 
-//            baseFunc.waitForJs();
-//            List<String> elementsOnPage = webElementsOnPage
-//                    .stream()
-//                    .map(WebElement::getText)
-//                    .collect(Collectors.toList());
-//            writer.write(String.valueOf(elementsOnPage));
-
             //.stream
 
             for (int i = 0; i < webElementsOnPage.size(); i++) {

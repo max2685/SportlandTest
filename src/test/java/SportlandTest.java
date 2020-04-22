@@ -30,25 +30,24 @@ public class SportlandTest {
         HomePage homePage = new HomePage(baseFunc);
         homePage.openSideMenu();
 
-        LOGGER.info("Click on " + PRODUKTI + "tab, select 'Football products', click on " + MAN + "tab, select "
-                + SHOES_FOR_FOOTBALL + "items, click on Sort Filter dropdown, select "
-                + FILTER_IZPARDOSANA + "filter, after select other filters, ckeck if all items manufacturer is "
-                + FILTER_BRAND + ", and if all items have " + PROCENT_SIGN + " sign and write files");
-        // fix this logger to be more readable
+        LOGGER.info("Click on " + PRODUKTI + "tab, select " + MAN + "in the gender tab, select "
+                + SHOES_FOR_FOOTBALL + "item");
 
         ItemsPage itemsPage = homePage.selectItemFromSideMenu(PRODUKTI)
                 .getProductPage()
                 .clickOnGenderTab(MAN)
-                .clickOnFootballShoesItem(SHOES_FOR_FOOTBALL)
+                .selectProductInSubMenu(2, SHOES_FOR_FOOTBALL)
                 .getItemsPage();
 
-        LOGGER.info("!!! complete !!!");
+        LOGGER.info("Open sort menu, click on " + FILTER_IZPARDOSANA + ", click on " + FILTER_CATEGORY +
+                "and click on " + FILTER_BRAND);
         itemsPage.openSortMenu()
                 .clickOnFilterByName(FILTER_IZPARDOSANA)
                 .selectItemCategoryFilter(FILTER_CATEGORY)
                 .selectItemBrandFilter(FILTER_BRAND);
 
-        LOGGER.info("Check bla bla");
+        LOGGER.info("Check if every item's brand is " + FILTER_BRAND + ", if every item is on discount and has "
+                + PROCENT_SIGN + "and write " + FILE_TXT);
         itemsPage.checkItemType(FILTER_BRAND)
                 .checkItemsOnSale(PROCENT_SIGN)
                 .writeTextFile(FILE_TXT);
