@@ -75,8 +75,21 @@ public class ItemsPage {
         try (FileWriter writer = new FileWriter(filename)) {
             String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
-
+// .stream()
+//                    .filter(we -> we.getText().toLowerCase().contains(name))
+//                    .findFirst()
+//                    .orElseThrow(() -> new AssertionError("No element found"))
+//                    .click();
+//
             //.stream
+
+//            webElementsOnPage
+//            .stream()
+//                    .filter(we-> Boolean.parseBoolean(we.getText()))
+//                    .forEach(we -> writeTextFile(filename));
+
+//
+
 
             for (int i = 0; i < webElementsOnPage.size(); i++) {
                 nameOfString = webElementsOnPage.get(i).getText();

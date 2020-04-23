@@ -6,16 +6,16 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import static enums.SideMenuItems.PRODUKTI;
+import static enums.GenderTab.ZENI;
+import static enums.ItemsInGenderTab.FUTBOLS;
+import static enums.SortMenuFilterItems.IZPARDOSANA;
+import static enums.SortMenuFilterItems.FUTBOLA_APAVI_CIETAM_SEGUMAM;
+import static enums.SortMenuFilterItems.NIKE;
 
 public class SportlandTest {
     private BaseFunc baseFunc = new BaseFunc();
     private final Logger LOGGER = LogManager.getLogger(SportlandTest.class);
     private final String HOME_PAGE = "sportland.lv";
-    private final String MAN = "zēni";
-    private final String SHOES_FOR_FOOTBALL = "futbols";
-    private final String FILTER_IZPARDOSANA = "izpārdošana";
-    private final String FILTER_CATEGORY = "futbola apavi cietam segumam";
-    private final String FILTER_BRAND = "nike";
     private final String PROCENT_SIGN = "%";
     private final String FILE_TXT = "File.txt";
 
@@ -30,25 +30,27 @@ public class SportlandTest {
         HomePage homePage = new HomePage(baseFunc);
         homePage.openSideMenu();
 
-        LOGGER.info("Click on " + PRODUKTI + "tab, select " + MAN + "in the gender tab, select "
-                + SHOES_FOR_FOOTBALL + "item");
+        LOGGER.info("Click on " + PRODUKTI + "tab, select " + ZENI + "in the gender tab, select "
+                + FUTBOLS + "item");
 
         ItemsPage itemsPage = homePage.selectItemFromSideMenu(PRODUKTI)
                 .getProductPage()
-                .clickOnGenderTab(MAN)
-                .selectProductInSubMenu(2, SHOES_FOR_FOOTBALL)
+                .clickOnGenderTab(String.valueOf(ZENI))
+                .selectProductInSubMenu(2, String.valueOf(FUTBOLS))
                 .getItemsPage();
 
-        LOGGER.info("Open sort menu, click on " + FILTER_IZPARDOSANA + ", click on " + FILTER_CATEGORY +
-                "and click on " + FILTER_BRAND);
-        itemsPage.openSortMenu()
-                .clickOnFilterByName(FILTER_IZPARDOSANA)
-                .selectItemCategoryFilter(FILTER_CATEGORY)
-                .selectItemBrandFilter(FILTER_BRAND);
+        LOGGER.info("Open sort menu, click on " + IZPARDOSANA + " filter, click on " + FUTBOLA_APAVI_CIETAM_SEGUMAM +
+                "filter and click on " + NIKE + "filter");
 
-        LOGGER.info("Check if every item's brand is " + FILTER_BRAND + ", if every item is on discount and has "
+        itemsPage.openSortMenu()
+                .clickOnFilterByName(String.valueOf(IZPARDOSANA))
+                .selectItemCategoryFilter(String.valueOf(FUTBOLA_APAVI_CIETAM_SEGUMAM))
+                .selectItemBrandFilter(String.valueOf(NIKE));
+
+        LOGGER.info("Check if every item's brand is " + NIKE + ", if every item is on discount and has "
                 + PROCENT_SIGN + "and write " + FILE_TXT);
-        itemsPage.checkItemType(FILTER_BRAND)
+
+        itemsPage.checkItemType(String.valueOf(NIKE))
                 .checkItemsOnSale(PROCENT_SIGN)
                 .writeTextFile(FILE_TXT);
 
