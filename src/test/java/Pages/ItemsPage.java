@@ -57,10 +57,11 @@ public class ItemsPage {
         List<WebElement> shoesType = baseFunc.getElements(ITEMS_ON_PAGE);
         shoesType
                 .stream()
-                .filter(we -> we.getText().contains(name))
-                .forEach(Assert.assertTrue());
-        //KAK
+                .forEach((webElement) -> {
+                    Assert.assertTrue("Not only Nike items are here", webElement.getText().contains(name));
+                });
 
+        //KAK
 
 //        for (WebElement we : shoesType) {
 //            Assert.assertTrue("Not only Nike items are here", we.getText().toLowerCase().contains(name));
@@ -71,9 +72,15 @@ public class ItemsPage {
     public ItemsPage checkItemsOnSale(String name) {
         // .stream
         List<WebElement> itemsOnSale = baseFunc.getElements(ITEMS_ON_PAGE_DISCOUNT);
-        for (WebElement we : itemsOnSale) {
-            Assert.assertTrue("Not all of the items are on sale", we.getText().toLowerCase().contains(name));
-        }
+        itemsOnSale
+                .stream()
+                .forEach((webElement) -> {
+                    Assert.assertTrue("Not only Nike items are here", webElement.getText().contains(name));
+                });
+
+//        for (WebElement we : itemsOnSale) {
+//            Assert.assertTrue("Not all of the items are on sale", we.getText().toLowerCase().contains(name));
+//        }
         return this;
     }
 
@@ -81,11 +88,6 @@ public class ItemsPage {
         try (FileWriter writer = new FileWriter(filename)) {
             String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
-// .stream()
-//                    .filter(we -> we.getText().toLowerCase().contains(name))
-//                    .findFirst()
-//                    .orElseThrow(() -> new AssertionError("No element found"))
-//                    .click();
 
             webElementsOnPage
                     .stream()
