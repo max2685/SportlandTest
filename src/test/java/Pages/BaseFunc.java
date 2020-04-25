@@ -49,7 +49,7 @@ public class BaseFunc {
     }
 
     public void waitForElement(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public void scrollDownBy(int x, int y) {
@@ -77,10 +77,18 @@ public class BaseFunc {
         listOfElements
                 .stream()
                 .filter(we -> we.getText().toLowerCase().contains(name))
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new AssertionError("No element found"))
                 .click();
     }
+
+    public void waitForPageLoadComplete() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ie) {
+        }
+    }
 }
+
 
 
