@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static enums.SideMenuItems.PRODUKTI;
 
@@ -28,16 +29,15 @@ public class ProductPage {
 
     public ProductPage selectProductInSubMenu(Integer rawNumber, String name) {
         List<WebElement> listWithRaws = baseFunc.getElements(RAWS_IN_TAB);
-        for (int i = 0; i < listWithRaws.size(); i++) {
-            List<WebElement> elementsInRaw = listWithRaws.get(rawNumber).findElements(By.tagName("li"));
-            elementsInRaw
-                    .stream()
-                    .filter(we -> we.getText().toLowerCase().equals(name))
-                    .findFirst()
-                    .orElseThrow(() -> new AssertionError("No element found"))
-                    .click();
-            break;
-        }
+        IntStream.range(0, listWithRaws.size()).mapToObj(i -> listWithRaws.get(rawNumber)
+                .findElements(By.tagName("li")))
+                .findFirst()
+                .ifPresent(elementsInRaw -> elementsInRaw
+                .stream()
+                .filter(we -> we.getText().toLowerCase().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No element found"))
+                .click());
         return this;
     }
 

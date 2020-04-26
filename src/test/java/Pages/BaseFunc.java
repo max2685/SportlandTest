@@ -74,8 +74,7 @@ public class BaseFunc {
 
     public void findElementInListByNameAndClick(List<WebElement> listOfElements, String name) {
         this.waitForJs();
-        listOfElements
-                .stream()
+        listOfElements.stream()
                 .filter(we -> we.getText().toLowerCase().contains(name))
                 .findAny()
                 .orElseThrow(() -> new AssertionError("No element found"))

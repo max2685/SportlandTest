@@ -54,10 +54,7 @@ public class ItemsPage {
     public ItemsPage checkItemType(String name) {
         // .stream
         baseFunc.waitForJs();
-        List<WebElement> shoesType = baseFunc.getElements(ITEMS_ON_PAGE);
-        shoesType
-                .stream()
-                .forEach((webElement) -> {
+        baseFunc.getElements(ITEMS_ON_PAGE).forEach((webElement) -> {
                     Assert.assertTrue("Not only Nike items are here", webElement.getText().contains(name));
                 });
 
@@ -71,10 +68,7 @@ public class ItemsPage {
 
     public ItemsPage checkItemsOnSale(String name) {
         // .stream
-        List<WebElement> itemsOnSale = baseFunc.getElements(ITEMS_ON_PAGE_DISCOUNT);
-        itemsOnSale
-                .stream()
-                .forEach((webElement) -> {
+        baseFunc.getElements(ITEMS_ON_PAGE_DISCOUNT).forEach((webElement) -> {
                     Assert.assertTrue("Not only Nike items are here", webElement.getText().contains(name));
                 });
 
