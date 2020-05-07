@@ -55,7 +55,6 @@ public class ItemsPage {
 
     public ItemsPage checkItemType(String type) {
         baseFunc.waitForJs();
-        baseFunc.waitForPageLoadComplete();
         baseFunc.getElements(ITEMS_ON_PAGE)
                 .forEach(webElement -> Assert.assertTrue("Not only Nike items are here",
                         webElement.getText().toLowerCase().contains(type)));

@@ -82,14 +82,6 @@ public class BaseFunc {
                 .click();
     }
 
-    public void waitForPageLoadComplete() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void waitJsExecution() {
         String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = " +
                 "start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(5000);return 'success';";
