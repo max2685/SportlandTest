@@ -20,7 +20,6 @@ public class ItemsPage {
     private final By ITEMS_ON_PAGE = By.xpath(".//p[@class = 'spodb-product-card__title']");
     private final By ITEMS_ON_PAGE_DISCOUNT = By.xpath(".//p[@class = 'spodb-product-card__percentage']");
     private final String FOOTBALL = "football";
-    private final By PIDR = By.xpath(".//label[@for = '85']");
 
     public ItemsPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
@@ -48,7 +47,7 @@ public class ItemsPage {
     }
 
     public ItemsPage selectItemBrandFilter(String brandName) {
-        baseFunc.scrollDownBy(0, 200);
+        baseFunc.scrollDownBy(0, 250);
         baseFunc.findElementInListByNameAndClick(baseFunc.getElements(FILTERS_GENDER_CATEGORY_BRAND), brandName);
         return this;
     }
