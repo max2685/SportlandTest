@@ -49,12 +49,13 @@ public class BaseFunc {
     }
 
     public void waitForElement(By locator) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
     public void scrollDownBy(int x, int y) {
         jsx = (JavascriptExecutor) driver;
-        jsx.executeScript("window.scrollBy(0,450)");
+        jsx.executeScript("window.scrollBy(" + x + " , " + y + ")");
     }
 
     public void driverQuit() {
@@ -73,8 +74,8 @@ public class BaseFunc {
     }
 
     public void findElementInListByNameAndClick(List<WebElement> listOfElements, String name) {
-        this.waitForJs();
-        listOfElements.stream()
+        listOfElements
+                .stream()
                 .filter(we -> we.getText().toLowerCase().contains(name))
                 .findAny()
                 .orElseThrow(() -> new AssertionError("No element found"))
@@ -83,9 +84,16 @@ public class BaseFunc {
 
     public void waitForPageLoadComplete() {
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ie) {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void waitJsExecution() {
+        String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = " +
+                "start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(5000);return 'success';";
+        wait.until(ExpectedConditions.jsReturnsValue(javaScript));
     }
 }
 

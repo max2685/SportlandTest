@@ -12,8 +12,7 @@ public class ProductPage {
     BaseFunc baseFunc;
 
     private final By DROP_DOWN_MENU_GENDER = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
-    private final By ITEMS_UNDER_SHOES = By.xpath(".//li[@id='wp-megamenu-item-84749']/ul/li");
-    private final By RAWS_IN_TAB = By.xpath(".//li[@class = 'wpmm-row wp-megamenu-item-404705606899805682 wpmm-submenu-right']/ul/li");
+    private final By RAWS_IN_TAB = By.xpath(".//li[@id = 'wp-megamenu-item-84252']/ul/li/ul/li");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;

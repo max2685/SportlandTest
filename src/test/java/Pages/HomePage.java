@@ -2,9 +2,6 @@ package Pages;
 
 import enums.SideMenuItems;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,8 +21,7 @@ public class HomePage {
     }
 
     public HomePage selectItemFromSideMenu(SideMenuItems name) {
-        List<WebElement> menuItems = baseFunc.getElements(SIDE_MENU_ITEMS);
-        baseFunc.findElementInListByNameAndClick(menuItems, name.menuItem());
+        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(SIDE_MENU_ITEMS), name.menuItem());
         return this;
     }
 

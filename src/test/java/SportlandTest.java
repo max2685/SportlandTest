@@ -18,6 +18,7 @@ public class SportlandTest {
     private final String HOME_PAGE = "sportland.lv";
     private final String PROCENT_SIGN = "%";
     private final String FILE_TXT = "File.txt";
+    private final String FILE_JSON = "File2.json";
 
     @Test
 
@@ -52,7 +53,9 @@ public class SportlandTest {
 
         itemsPage.checkItemType(String.valueOf(NIKE))
                 .checkItemsOnSale(PROCENT_SIGN)
-                .writeTextFile(FILE_TXT);
+                .writeTextFile(FILE_TXT)
+                .writeJSONFile(FILE_JSON);
+
 
         LOGGER.info("Close browser");
         baseFunc.driverQuit();
