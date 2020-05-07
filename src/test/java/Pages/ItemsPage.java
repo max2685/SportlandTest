@@ -53,7 +53,6 @@ public class ItemsPage {
     }
 
     public ItemsPage checkItemType(String name) {
-        // .stream
         baseFunc.waitForJs();
         List<WebElement> shoesType = baseFunc.getElements(ITEMS_ON_PAGE);
         for (WebElement we : shoesType) {
@@ -75,15 +74,6 @@ public class ItemsPage {
         try (FileWriter writer = new FileWriter(filename)) {
             String nameOfString;
             List<WebElement> webElementsOnPage = baseFunc.getElements(ITEMS_ON_PAGE);
-
-//            baseFunc.waitForJs();
-//            List<String> elementsOnPage = webElementsOnPage
-//                    .stream()
-//                    .map(WebElement::getText)
-//                    .collect(Collectors.toList());
-//            writer.write(String.valueOf(elementsOnPage));
-
-            //.stream
 
             for (int i = 0; i < webElementsOnPage.size(); i++) {
                 nameOfString = webElementsOnPage.get(i).getText();
