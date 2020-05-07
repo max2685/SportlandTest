@@ -1,14 +1,18 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 import static enums.SideMenuItems.PRODUKTI;
 
 public class ProductPage {
     BaseFunc baseFunc;
 
-    private final By DROP_DOWN_MENU_PRODUCTS = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
-    private final By ITEMS_UNDER_SHOES = By.xpath(".//li[@id='wp-megamenu-item-84749']/ul/li");
+    private final By DROP_DOWN_MENU_GENDER = By.xpath(".//ul[@id='menu-product-menu1']/li/a");
+    private final By RAWS_IN_TAB = By.xpath(".//li[@id = 'wp-megamenu-item-84252']/ul/li/ul/li");
 
     public ProductPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
@@ -16,18 +20,24 @@ public class ProductPage {
     }
 
     public ProductPage clickOnGenderTab(String name) {
-        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(DROP_DOWN_MENU_PRODUCTS), name);
+        baseFunc.waitForJs();
+        baseFunc.waitForElement(DROP_DOWN_MENU_GENDER);
+        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(DROP_DOWN_MENU_GENDER), name);
         return this;
     }
 
-    public ProductPage clickOnFootballShoesItem(String name) {
-        baseFunc.waitForElement(ITEMS_UNDER_SHOES);
-        baseFunc.findElementInListByNameAndClick(baseFunc.getElements(ITEMS_UNDER_SHOES), name);
+    public ProductPage selectProductInSubMenu(Integer rawNumber, String name) {
+        List<WebElement> listWithRaws = baseFunc.getElements(RAWS_IN_TAB);
+        IntStream.range(0, listWithRaws.size()).mapToObj(i -> listWithRaws.get(rawNumber)
+                .findElements(By.tagName("li")))
+                .findFirst()
+                .ifPresent(elementsInRaw -> elementsInRaw
+                .stream()
+                .filter(we -> we.getText().toLowerCase().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("No element found"))
+                .click());
         return this;
-    }
-
-    public void selectProductInSubMenu() {
-        // try to create it reusable
     }
 
     public ItemsPage getItemsPage() {

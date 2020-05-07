@@ -6,18 +6,19 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import static enums.SideMenuItems.PRODUKTI;
+import static enums.GenderTab.ZENI;
+import static enums.ItemsInGenderTab.FUTBOLS;
+import static enums.SortMenuFilterItems.IZPARDOSANA;
+import static enums.SortMenuFilterItems.FUTBOLA_APAVI_CIETAM_SEGUMAM;
+import static enums.SortMenuFilterItems.NIKE;
 
 public class SportlandTest {
     private BaseFunc baseFunc = new BaseFunc();
     private final Logger LOGGER = LogManager.getLogger(SportlandTest.class);
     private final String HOME_PAGE = "sportland.lv";
-    private final String MAN = "zēni";
-    private final String SHOES_FOR_FOOTBALL = "futbols";
-    private final String FILTER_IZPARDOSANA = "izpārdošana";
-    private final String FILTER_CATEGORY = "futbola apavi cietam segumam";
-    private final String FILTER_BRAND = "nike";
     private final String PROCENT_SIGN = "%";
     private final String FILE_TXT = "File.txt";
+    private final String FILE_JSON = "File2.json";
 
     @Test
 
@@ -30,28 +31,31 @@ public class SportlandTest {
         HomePage homePage = new HomePage(baseFunc);
         homePage.openSideMenu();
 
-        LOGGER.info("Click on " + PRODUKTI + "tab, select 'Football products', click on " + MAN + "tab, select "
-                + SHOES_FOR_FOOTBALL + "items, click on Sort Filter dropdown, select "
-                + FILTER_IZPARDOSANA + "filter, after select other filters, ckeck if all items manufacturer is "
-                + FILTER_BRAND + ", and if all items have " + PROCENT_SIGN + " sign and write files");
-        // fix this logger to be more readable
+        LOGGER.info("Click on " + PRODUKTI + "tab, select " + ZENI + "in the gender tab, select "
+                + FUTBOLS + "item");
 
         ItemsPage itemsPage = homePage.selectItemFromSideMenu(PRODUKTI)
                 .getProductPage()
-                .clickOnGenderTab(MAN)
-                .clickOnFootballShoesItem(SHOES_FOR_FOOTBALL)
+                .clickOnGenderTab(String.valueOf(ZENI))
+                .selectProductInSubMenu(2, String.valueOf(FUTBOLS))
                 .getItemsPage();
 
-        LOGGER.info("!!! complete !!!");
-        itemsPage.openSortMenu()
-                .clickOnFilterByName(FILTER_IZPARDOSANA)
-                .selectItemCategoryFilter(FILTER_CATEGORY)
-                .selectItemBrandFilter(FILTER_BRAND);
+        LOGGER.info("Open sort menu, click on " + IZPARDOSANA + " filter, click on " + FUTBOLA_APAVI_CIETAM_SEGUMAM +
+                "filter and click on " + NIKE + "filter");
 
-        LOGGER.info("Check bla bla");
-        itemsPage.checkItemType(FILTER_BRAND)
+        itemsPage.openSortMenu()
+                .clickOnFilterByName(String.valueOf(IZPARDOSANA))
+                .selectItemCategoryFilter(String.valueOf(FUTBOLA_APAVI_CIETAM_SEGUMAM))
+                .selectItemBrandFilter(String.valueOf(NIKE));
+
+        LOGGER.info("Check if every item's brand is " + NIKE + ", if every item is on discount and has "
+                + PROCENT_SIGN + "and write " + FILE_TXT);
+
+        itemsPage.checkItemType(String.valueOf(NIKE))
                 .checkItemsOnSale(PROCENT_SIGN)
-                .writeTextFile(FILE_TXT);
+                .writeTextFile(FILE_TXT)
+                .writeJSONFile(FILE_JSON);
+
 
         LOGGER.info("Close browser");
         baseFunc.driverQuit();

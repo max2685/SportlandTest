@@ -16,7 +16,6 @@ public class BaseFunc {
     WebDriverWait wait;
     JavascriptExecutor jsx;
 
-
     public BaseFunc() {
         System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
         driver = new ChromeDriver();
@@ -50,12 +49,13 @@ public class BaseFunc {
     }
 
     public void waitForElement(By locator) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
     public void scrollDownBy(int x, int y) {
         jsx = (JavascriptExecutor) driver;
-        jsx.executeScript("window.scrollBy(0,450)");
+        jsx.executeScript("window.scrollBy(" + x + " , " + y + ")");
     }
 
     public void driverQuit() {
@@ -74,14 +74,20 @@ public class BaseFunc {
     }
 
     public void findElementInListByNameAndClick(List<WebElement> listOfElements, String name) {
-        this.waitForJs();
         listOfElements
                 .stream()
                 .filter(we -> we.getText().toLowerCase().contains(name))
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new AssertionError("No element found"))
                 .click();
     }
+
+    public void waitJsExecution() {
+        String javaScript = "(function watcher(ms){var start=new Date().getTime();var end = " +
+                "start;while(end<start+ms){end=new Date().getTime();};return 'complete';})(5000);return 'success';";
+        wait.until(ExpectedConditions.jsReturnsValue(javaScript));
+    }
 }
+
 
 
